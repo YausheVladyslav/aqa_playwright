@@ -14,8 +14,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  globalSetup: require.resolve('./global-setup'),
-  globalTeardown: require.resolve('./global-teardown'),
+  // globalSetup: require.resolve('./global-setup'),
+  // globalTeardown: require.resolve('./global-teardown'),
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   // testMatch: /.*\.spec\.js/,
@@ -28,7 +28,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 2 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -45,7 +45,7 @@ export default defineConfig({
     // viewport: { width: 1280, height: 720 },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
     // video: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -56,30 +56,30 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    {
-      name: 'regression',
-      grepInvert: /@ui/,
-      // dependencies: ['chromium', 'firefox', 'webkit', 'setup'],
-      use: {
-        ...devices['Desktop Chrome'],
-        // viewport: { width: 1920, height: 1080 },
-        // trace: 'on-first-retry',
-        // baseURL: 'https://qauto.forstudy.space/'
-      },
-    },
+    // {
+    //   name: 'regression',
+    //   grepInvert: /@ui/,
+    //   // dependencies: ['chromium', 'firefox', 'webkit', 'setup'],
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     // viewport: { width: 1920, height: 1080 },
+    //     // trace: 'on-first-retry',
+    //     // baseURL: 'https://qauto.forstudy.space/'
+    //   },
+    // },
 
-    {
-      name: 'smoke',
-      grep: /@smoke/,
-      // testMatch: /tests\/smoke\/.*\.spec\.js/,
-      use: { ...devices['Desktop Chrome'],
-        trace: 'on-first-retry',
-        screenshot: {
-          fullPage: true,
-          mode: 'only-on-failure',
-        }
-       },
-    },
+    // {
+    //   name: 'smoke',
+    //   grep: /@smoke/,
+    //   // testMatch: /tests\/smoke\/.*\.spec\.js/,
+    //   use: { ...devices['Desktop Chrome'],
+    //     trace: 'on-first-retry',
+    //     screenshot: {
+    //       fullPage: true,
+    //       mode: 'only-on-failure',
+    //     }
+    //    },
+    // },
 
     // {
     //   name: 'chromium',
