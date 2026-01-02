@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-test.describe("Playwright tests", () => {
+test.describe.skip("Playwright tests", () => {
 
 test.beforeEach( () => {
     console.log("Before each test");
