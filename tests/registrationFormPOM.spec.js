@@ -2,15 +2,16 @@ import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import MainPage from '../src/pageObjects/main/MainPage.js';
 import SignUpPage from '../src/pageObjects/main/components/SignUpModalComponent.js';
+import SignUpModalComponent from '../src/pageObjects/main/components/SignUpModalComponent.js';
 
 
-test.describe("Registration form POM", () => {
+test.describe.only("Registration form POM", () => {
     let signUpPage;
     let mainPage;
 
     test.beforeEach(async ({ page }) => {
         mainPage = new MainPage(page);
-        signUpPage = new SignUpPage(page);
+        signUpPage = new SignUpModalComponent(page);
 
         await mainPage.navigate();
         await mainPage.openSignUpModal();
@@ -30,7 +31,7 @@ test.describe("Registration form POM", () => {
         }
 
         await signUpPage.fillSignUpFields(userData);
-        await signUpPage.assertionSignUpModalFields(userData);
+        await signUpPage.assertSignUpModalFields(userData);
         await signUpPage.clickRegisterButton();
     })
 
@@ -78,7 +79,7 @@ test.describe("Registration form POM", () => {
 
     })
 
-    test.only("Reloading page should reset all fields", async () => {
+    test("Reloading page should reset all fields", async () => {
 
         const password = `Testqa${faker.number.int({ min: 100, max: 1000 })}`
         const userData = {

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import config from './config/config';
 
 /**
  * Read environment variables from file.
@@ -8,6 +9,9 @@ import { defineConfig, devices } from '@playwright/test';
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+// import * as dotenv from 'dotenv';
+// dotenv.config();
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -35,11 +39,12 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
-    baseURL: 'https://qauto.forstudy.space/',
-    httpCredentials: {
-      username: 'guest',
-      password: 'welcome2qauto',
-    },
+
+    // baseURL: config.baseURL,
+    // httpCredentials: config.httpCredentials,
+
+    baseURL: config.baseURL,
+    httpCredentials: config.httpCredentials,
     // true - no browser window, false - show browser window
     headless: false,
     // viewport: { width: 1280, height: 720 },

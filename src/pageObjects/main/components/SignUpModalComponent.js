@@ -3,7 +3,7 @@ import { expect } from "@playwright/test";
 import BasePage from '../../BasePage.js';
 
 
-export default class SignUpPage extends BasePage {
+export default class SignUpModalComponent extends BasePage {
     constructor(page) {
         super(page, '/');
 
