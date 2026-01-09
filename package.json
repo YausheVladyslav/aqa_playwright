@@ -26,6 +26,7 @@
     "globals": "^16.5.0"
   },
   "dependencies": {
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "playwright-qase-reporter": "^2.1.6"
   }
 }
