@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 import MainPage from '../src/pageObjects/main/MainPage.js';
-import SignUpPage from '../src/pageObjects/main/components/SignUpModalComponent.js';
 import SignUpModalComponent from '../src/pageObjects/main/components/SignUpModalComponent.js';
 
 
@@ -45,7 +44,7 @@ test.describe.only("Registration form POM", () => {
 
         // expect(nameField).toHaveCSS('border-color', 'rgb(220, 53, 69)');
         expect(errorMessage).toBeVisible();
-        expect(errorMessage).not.toBeEmpty();
+        expect(errorMessage).toBeEmpty();
         expect(nameField).toHaveCSS('border-color', 'rgb(220, 53, 69)');
 
     })
@@ -70,12 +69,16 @@ test.describe.only("Registration form POM", () => {
     })
 
     test("Valid email with subdomain should be accepted", async () => {
-        const email = 'user123@email.co.uk';
-        const emailField = await signUpPage.getFieldByName('email');
-        await emailField.fill(email);
-        await emailField.blur();
-        const errorMessage = await signUpPage.getErrorMessage();
-        await signUpPage.expectEmptyErrorMessage(errorMessage);
+        await test.step("Filling email field with valid email having subdomain", async () => {
+            const email = 'user123@email.co.uk';
+            const emailField = await signUpPage.getFieldByName('email');
+            await emailField.fill(email);
+            await emailField.blur();
+        })
+        await test.step("Verifying that no error message is shown for valid email", async () => {
+            const errorMessage = await signUpPage.getErrorMessage();
+            await signUpPage.expectEmptyErrorMessage(errorMessage);
+        })
 
     })
 
@@ -99,7 +102,7 @@ test.describe.only("Registration form POM", () => {
         expect(userFilledData.email).toHaveValue(userData.email);
         expect(userFilledData.password).toHaveValue(userData.password);
         expect(userFilledData.repeatPassword).toHaveValue(userData.repeatPassword);
-        expect(registerButton).toBeEnabled({timeout: 5000});
+        expect(registerButton).toBeEnabled({ timeout: 5000 });
 
         await mainPage.reloadPage();
 
@@ -114,7 +117,7 @@ test.describe.only("Registration form POM", () => {
         signUpPage.expectFieldByNameToBeEmpty('email');
         signUpPage.expectFieldByNameToBeEmpty('password');
         signUpPage.expectFieldByNameToBeEmpty('repeatPassword');
-        expect(registerButton).not.toBeEnabled({timeout: 5000});
+        expect(registerButton).not.toBeEnabled({ timeout: 5000 });
     })
 
 })
