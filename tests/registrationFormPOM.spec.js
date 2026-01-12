@@ -4,7 +4,7 @@ import MainPage from '../src/pageObjects/main/MainPage.js';
 import SignUpModalComponent from '../src/pageObjects/main/components/SignUpModalComponent.js';
 
 
-test.describe.only("Registration form POM", () => {
+test.describe("Registration form POM", () => {
     let signUpPage;
     let mainPage;
 

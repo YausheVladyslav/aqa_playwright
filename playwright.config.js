@@ -38,7 +38,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html', { open: 'on-failure' }],
-    ['playwright-qase-reporter']
+    // ['playwright-qase-reporter']
     // ['list'],
     // ['junit', { outputFile: 'results.xml' }]
   ],

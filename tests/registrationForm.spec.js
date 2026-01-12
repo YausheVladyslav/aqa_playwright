@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
-test.describe("Registration form", () => {
+test.describe.skip("Registration form", () => {
 
     test.beforeEach(async ({ page }) => {
         await page.goto('/');
