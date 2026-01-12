@@ -1,11 +1,11 @@
 
 import { expect } from "@playwright/test";
-import BasePage from '../../BasePage.js';
+import BaseComponent from '../../BaseComponent.js';
 
 
-export default class SignUpModalComponent extends BasePage {
+export default class SignUpModalComponent extends BaseComponent {
     constructor(page) {
-        super(page, '/');
+        super(page);
 
         this.signUpModal = page.locator(".modal-content");
         this.registerButton = this.signUpModal.getByRole("button", { name: "Register" })
