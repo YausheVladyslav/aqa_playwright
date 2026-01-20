@@ -13,7 +13,7 @@ test.describe("Create API tests", async () => {
         page.goto('/api');
     })
 
-    test.only('Create a car with not authorized user', async () => {
+    test('Create a car with not authorized user', async () => {
         const { brands, models } = await carService.getBrandsAndModels()
         console.log("BRANDS", await brands)
         console.log("MODELS", await models)
@@ -24,7 +24,7 @@ test.describe("Create API tests", async () => {
         expect(createCarResponse).not.toBeOK();
     })
 
-    test('Create a car with authorized user', async ({ authorizedUser }) => {
+    test.only('Create a car with authorized user', async ({ authorizedUser }) => {
         console.log("created user for authorizedUser fixture from TEST", await authorizedUser.user)
 
         const { brands, models } = await carService.getBrandsAndModels()
@@ -34,8 +34,25 @@ test.describe("Create API tests", async () => {
         const randomValidCar = await CarDtoFactory.randomValidCar(brands, models).extract()
         console.log("RANDOM CAR CREATED:", randomValidCar)
         const createCarResponse = await apiClient.carController.createCar(randomValidCar)
-        console.log("RESPONSE: ", await createCarResponse.json())
+        const responseJSON = await createCarResponse.json()
+
+        const expectedResponse = {
+            "id": expect.any(Number),
+            "carBrandId": randomValidCar.carBrandId,
+            "carCreatedAt": expect.any(String),
+            "carModelId": randomValidCar.carModelId,
+            "initialMileage": randomValidCar.mileage,
+            "updatedMileageAt": expect.any(String),
+            "mileage": randomValidCar.mileage,
+            "brand": expect.any(String),
+            "model": expect.any(String),
+            "logo": expect.any(String)
+        }
+
+        console.log("RESPONSE: ", responseJSON)
         await expect(createCarResponse).toBeOK();
+        expect(responseJSON.data).toMatchObject(expectedResponse)
+        expect(responseJSON.data).toEqual(expectedResponse)
     })
 
 })
