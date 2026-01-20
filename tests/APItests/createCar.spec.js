@@ -1,46 +1,37 @@
 import { expect } from '@playwright/test';
 import ApiClient from '../../src/clients/ApiClient.js';
-import { faker } from '@faker-js/faker';
 import CarDtoFactory from '../../src/domain/factory/carDtoFactory.js';
 import { test } from '../../src/customFixtures/customFixture.js'
+import CarService from '../../src/services/CarService.js';
 
-test.describe.only("Create API tests", async () => {
+test.describe("Create API tests", async () => {
     let apiClient;
+    let carService;
     test.beforeEach(async ({ page, request }) => {
         apiClient = new ApiClient(request);
+        carService = new CarService(apiClient);
         page.goto('/api');
     })
 
-    test('Create a car', async ({authorizedUser}) => {
-        const getBrandsResponse = await apiClient.carController.getCarBrands()
-        const carBrandListJSON = await getBrandsResponse.json()
-        const carBrandsData = carBrandListJSON.data
-        console.log(carBrandListJSON)
+    test.only('Create a car with not authorized user', async () => {
+        const { brands, models } = await carService.getBrandsAndModels()
+        console.log("BRANDS", await brands)
+        console.log("MODELS", await models)
 
-        const carModelsResponse = await apiClient.carController.getCarModels()
-        const carModelListJSON = await carModelsResponse.json()
-        const carModelsData = carModelListJSON.data
-        console.log(carModelListJSON)
-
-        const randomValidCar = await CarDtoFactory.randomValidCar(carBrandsData, carModelsData).extract()
+        const randomValidCar = await CarDtoFactory.randomValidCar(brands, models).extract()
         console.log(randomValidCar)
         const createCarResponse = await apiClient.carController.createCar(randomValidCar)
-        expect(createCarResponse).toBeOK();
+        expect(createCarResponse).not.toBeOK();
     })
 
     test('Create a car with authorized user', async ({ authorizedUser }) => {
         console.log("created user for authorizedUser fixture from TEST", await authorizedUser.user)
-        const getBrandsResponse = await authorizedUser.apiClient.carController.getCarBrands()
-        const carBrandListJSON = await getBrandsResponse.json()
-        const carBrandsData = carBrandListJSON.data
-        console.log(carBrandListJSON)
 
-        const carModelsResponse = await authorizedUser.apiClient.carController.getCarModels()
-        const carModelListJSON = await carModelsResponse.json()
-        const carModelsData = carModelListJSON.data
-        console.log(carModelListJSON)
+        const { brands, models } = await carService.getBrandsAndModels()
+        console.log("BRANDS", await brands)
+        console.log("MODELS", await models)
 
-        const randomValidCar = await CarDtoFactory.randomValidCar(carBrandsData, carModelsData).extract()
+        const randomValidCar = await CarDtoFactory.randomValidCar(brands, models).extract()
         console.log("RANDOM CAR CREATED:", randomValidCar)
         const createCarResponse = await apiClient.carController.createCar(randomValidCar)
         console.log("RESPONSE: ", await createCarResponse.json())
