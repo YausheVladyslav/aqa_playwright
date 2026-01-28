@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import ApiClient from '../../src/clients/ApiClient.js';
-import CarDtoFactory from '../../src/domain/factory/carDtoFactory.js';
+import CarDtoFactory from '../../src/domain/factory/CarDtoFactory.js';
 import { test } from '../../src/customFixtures/customFixture.js'
 import CarService from '../../src/services/CarService.js';
 
