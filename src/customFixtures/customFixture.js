@@ -2,7 +2,7 @@ import { test as base } from '@playwright/test';
 import MainPage from '../pageObjects/main/MainPage.js';
 import GaragePage from '../pageObjects/garage/GaragePage.js';
 import ApiClient from '../clients/ApiClient.js';
-import UserDtoFactory from '../domain/factory/userDtoFactory.js';
+import UserDtoFactory from '../domain/factory/UserDtoFactory.js';
 
 export const test = base.extend({
     mainPage: async ({ page }, use) => {
