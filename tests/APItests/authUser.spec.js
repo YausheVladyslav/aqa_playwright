@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import ApiClient from '../../src/clients/ApiClient.js';
-import UserDtoFactory from '../../src/domain/factory/userDtoFactory.js';
+import UserDtoFactory from '../../src/domain/factory/UserDtoFactory.js';
 
 test.describe("User authentication with API", async () => {
     let apiClient;
