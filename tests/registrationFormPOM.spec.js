@@ -18,7 +18,7 @@ test.describe("Registration form POM", () => {
     })
 
 
-    test("Sign up with valid data should be successful", async () => {
+    test("Sign up with valid data should be successful @pom", async () => {
 
         const password = `Testqa${faker.number.int({ min: 100, max: 1000 })}`
         const userData = {
@@ -34,7 +34,7 @@ test.describe("Registration form POM", () => {
         await signUpPage.clickRegisterButton();
     })
 
-    test("Empty 'Name' field should show an error message", async () => {
+    test("Empty 'Name' field should show an error message @pom", async () => {
         const nameField = await signUpPage.getFieldByName('name');
 
         await nameField.focus();
@@ -49,7 +49,7 @@ test.describe("Registration form POM", () => {
 
     })
 
-    test("Invalid Name with 1 character should show error message", async () => {
+    test("Invalid Name with 1 character should show error message @pom", async () => {
         const nameField = await signUpPage.getFieldByName('name');
         await nameField.fill('A');
         await nameField.blur();
@@ -58,7 +58,7 @@ test.describe("Registration form POM", () => {
 
     })
 
-    test("Invalid Name with 21 character should show error message", async () => {
+    test("Invalid Name with 21 character should show error message @pom", async () => {
         const longName = 'qwertyuiopasdfghjklzx'; //21 characters
         const nameField = await signUpPage.getFieldByName('name');
         await nameField.fill(longName);
@@ -68,7 +68,7 @@ test.describe("Registration form POM", () => {
 
     })
 
-    test("Valid email with subdomain should be accepted", async () => {
+    test("Valid email with subdomain should be accepted @pom", async () => {
         await test.step("Filling email field with valid email having subdomain", async () => {
             const email = 'user123@email.co.uk';
             const emailField = await signUpPage.getFieldByName('email');
@@ -82,7 +82,7 @@ test.describe("Registration form POM", () => {
 
     })
 
-    test("Reloading page should reset all fields", async () => {
+    test("Reloading page should reset all fields @pom", async () => {
 
         const password = `Testqa${faker.number.int({ min: 100, max: 1000 })}`
         const userData = {

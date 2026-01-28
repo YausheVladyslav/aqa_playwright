@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import ApiClient from '../../src/clients/ApiClient.js';
-import UserDtoFactory from '../../src/domain/factory/userDtoFactory.js';
+import UserDtoFactory from '../../src/domain/factory/UserDtoFactory.js';
 
 test.describe("User authentication with API", async () => {
     let apiClient;
@@ -10,7 +10,7 @@ test.describe("User authentication with API", async () => {
 
     })
 
-    test('Sign up a new user', async () => {
+    test('Sign up a new user @regression', async () => {
         const validUser = UserDtoFactory.validUser().extract()
 
         const expectedResponse = {
@@ -31,7 +31,25 @@ test.describe("User authentication with API", async () => {
 
     })
 
-    test('Sign in as registered user', async () => {
+    test('Sign in (SIGN UP 2) as registered user @smoke', async () => {
+
+          const validUser = UserDtoFactory.validUser().extract()
+
+        const expectedResponse = {
+            status: 'ok',
+            data: {
+                userId: expect.any(Number),
+                photoFilename: 'default-user.png',
+                distanceUnits: 'km',
+                currency: 'usd'
+            }
+        }
+
+        const response = await apiClient.userController.signUp(validUser);
+        console.log("RESPONSE", await response.json());
+        expect(response.status()).toBe(201);
+        await expect(response).toBeOK();
+        expect(await response.json()).toEqual(expectedResponse);
 
     })
 
