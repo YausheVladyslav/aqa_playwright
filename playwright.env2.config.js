@@ -47,7 +47,8 @@ export default defineConfig({
     // baseURL: config.baseURL,
     // httpCredentials: config.httpCredentials,
 
-    baseURL: config.baseURL,
+    baseURL: config.baseURLEnv2,
+    // baseURL: config.baseURL,
     httpCredentials: config.httpCredentials,
     // true - no browser window, false - show browser window
     headless: true,
@@ -61,10 +62,10 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
     // {
     //   name: 'regression',
     //   grepInvert: /@ui/,
@@ -77,35 +78,35 @@ export default defineConfig({
     //   },
     // },
 
-    // {
-    //   name: 'smoke1',
-    //   grep: /@smoke/,
-    //   // testMatch: /tests\/smoke\/.*\.spec\.js/,
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     trace: 'on-first-retry',
-    //     screenshot: {
-    //       fullPage: true,
-    //       mode: 'only-on-failure',
-    //     }
-    //   },
-    // },
+    {
+      name: 'smoke env2',
+      grep: /@smoke/,
+      // testMatch: /tests\/smoke\/.*\.spec\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+        trace: 'on-first-retry',
+        screenshot: {
+          fullPage: true,
+          mode: 'only-on-failure',
+        }
+      },
+    },
 
-    // {
-    //   name: 'not a smoke',
-    //   // grep: /@smoke/,
-    //   grepInvert: /@smoke/,
-    //   // testMatch: /tests\/smoke\/.*\.spec\.js/,
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     trace: 'retain-on-failure',
-    //     screenshot: {
-    //       fullPage: true,
-    //       mode: 'only-on-failure',
-    //     }
-    //     //  baseURL: config.baseURLEnv2
-    //   },
-    // },
+    {
+      name: 'not a smoke env2',
+      // grep: /@smoke/,
+      grepInvert: /@smoke/,
+      // testMatch: /tests\/smoke\/.*\.spec\.js/,
+      use: {
+        ...devices['Desktop Chrome'],
+        trace: 'retain-on-failure',
+        screenshot: {
+          fullPage: true,
+          mode: 'only-on-failure',
+        }
+        //  baseURL: config.baseURLEnv2
+      },
+    },
 
     //     {
     //   name: 'regression',
