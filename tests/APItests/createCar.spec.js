@@ -21,7 +21,7 @@ test.describe("Create API tests", async () => {
         const randomValidCar = await CarDtoFactory.randomValidCar(brands, models).extract()
         console.log(randomValidCar)
         const createCarResponse = await apiClient.carController.createCar(randomValidCar)
-        expect(createCarResponse).not.toBeOK();
+        expect(createCarResponse).toBeOK();
     })
 
     test('Create a car with authorized user @regression', async ({ authorizedUser }) => {

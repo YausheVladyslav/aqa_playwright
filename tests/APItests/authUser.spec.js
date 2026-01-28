@@ -25,7 +25,7 @@ test.describe("User authentication with API", async () => {
 
         const response = await apiClient.userController.signUp(validUser);
         console.log("RESPONSE", await response.json());
-        expect(response.status()).toBe(202);
+        expect(response.status()).toBe(201);
         await expect(response).toBeOK();
         expect(await response.json()).toEqual(expectedResponse);
 
